@@ -15,6 +15,8 @@ public class NotificationController {
 
     @PostMapping("/user")
     public ResponseEntity<Void> notify(@RequestBody NotificationEvent notificationEvent){
+        Object newObj = new Object();
         return ResponseEntity.ok().build();
+
     }
 }

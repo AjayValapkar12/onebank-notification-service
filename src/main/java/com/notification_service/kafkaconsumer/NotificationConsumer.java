@@ -15,12 +15,16 @@ public class NotificationConsumer {
     @KafkaListener(topics = "user-notification", groupId = "notification-group")
     public void consume(String message) {
         try {
-//          NotificationEvent event =
-//                    objectMapper.readValue(message, NotificationEvent.class);
-            System.out.println("✅ Notification received: " + message);
+            System.out.println("RAW MESSAGE: " + message);
+
+            NotificationEvent event =
+                    objectMapper.readValue(message, NotificationEvent.class);
+
+            System.out.println("✅ Notification received: " + event);
+
         } catch (Exception e) {
-//          Send to DLQ  /  log
-            throw new RuntimeException("Kafka deserialization failed", e);
+            System.out.println("❌ Failed message (ignored, not crashing consumer): " + message);
+            e.printStackTrace();
         }
     }
 }
